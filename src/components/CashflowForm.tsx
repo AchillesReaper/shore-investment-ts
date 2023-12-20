@@ -46,7 +46,7 @@ export default function CashflowForm() {
                     style={{ width: '100px' }}
                     variant="primary"
                     onClick={() => {
-                        window.localStorage.setItem('cashBalance', String(cashBalance + cashflow))
+                        window.localStorage.setItem('Cash_Balance', String(cashBalance + cashflow))
                         window.dispatchEvent(new Event('storage'))
                         logCashflowRecord(cashflow, 'in', "Deposit")
                     }}
@@ -62,7 +62,7 @@ export default function CashflowForm() {
                         if (cashBalance < cashflow) {
                             alert("Insufficient Funds")
                         } else {
-                            window.localStorage.setItem('cashBalance', String(cashBalance - cashflow))
+                            window.localStorage.setItem('Cash_Balance', String(cashBalance - cashflow))
                             window.dispatchEvent(new Event('storage'))
                             logCashflowRecord(cashflow, 'out', "Withdraw")
                         }

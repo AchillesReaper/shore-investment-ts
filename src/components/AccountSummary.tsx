@@ -23,8 +23,8 @@ export default function AccountSummary() {
     // listener on localstorage is added to ensure immediate update for cash balance and position
     useEffect(() => {
         const handleStorageChange = () => {
-            setCashBalance(parseFloat(window.localStorage.getItem('cashBalance')!))
-            setPortfolioValue(JSON.parse(window.localStorage.getItem('currentPosition')!).portfolio_value!)
+            setCashBalance(parseFloat(window.localStorage.getItem('Cash_Balance')!))
+            setPortfolioValue(JSON.parse(window.localStorage.getItem('Current_Position')!).portfolio_value!)
         }
 
         window.addEventListener('storage', handleStorageChange)
