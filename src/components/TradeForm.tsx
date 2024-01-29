@@ -181,6 +181,9 @@ export default function TradeForm() {
                                 placeholder="ticker symble"
                                 value={ticker}
                                 onChange={(e) => setTicker(e.target.value)}
+                                onKeyDown={() => {
+                                    setQuoteTime(prev => (prev + 1))
+                                }}
                             ></input>
                         </Col>
 

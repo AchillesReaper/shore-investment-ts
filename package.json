@@ -22,7 +22,9 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "syncs3": "npm run build && aws s3 sync ./build 's3://portfoliomanager.dh3.space' --delete",
+    "synccdn": "aws cloudfront create-invalidation --distribution-id E2PZE1ATRDK2VV --paths '/*'"
   },
   "eslintConfig": {
     "extends": [

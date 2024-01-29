@@ -9,18 +9,6 @@ import CurrentPosition from './components/CurrentPosition';
 import Record from './components/Record';
 
 function App() {
-    // counts for trades and cashflow help in identifying entries and in turn the rendering of transaction record
-
-
-    // let tradeExisit: string | null = window.localStorage.getItem('Trade_Count')
-    // if (!tradeExisit) { window.localStorage.setItem('Trade_Count', '0') }
-
-    // let cashBalExist: string | null = window.localStorage.getItem('Cash_Balance')
-    // if (!cashBalExist) { window.localStorage.setItem('Cash_Balance', JSON.stringify(initial_cashBal)) }
-
-    // let positionExit: string | null = window.localStorage.getItem('Current_Position')
-    // if (!positionExit) { window.localStorage.setItem('Current_Position', JSON.stringify(initial_portfolio)) }
-
 
     if (!window.localStorage.getItem('Cashflow_Count')) {
         window.localStorage.setItem('Cashflow_Count', '0')
@@ -62,6 +50,8 @@ function App() {
             <div className='row text-center'>
                 <AccountSummary />
             </div>
+
+            <p>This tool have yet not integrated external API yet, therefore the price quote is limited to [aapl, googl, amzn, tsla, nvda] </p>
 
             <div className='row justify-content-between border border-success my-1'>
                 <div className='col-md-4 d-flex align-items-stretch text-center'>

@@ -1,5 +1,5 @@
 // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=aapl&interval=5min&apikey=YP10J6J5XSDGVUXX
-
+// Those price sample are for the development purpose, preventing over consume the API requests
 export const price_aapl = {
     "Meta Data": {
         "1. Information": "Intraday (5min) open, high, low, close prices and volume",

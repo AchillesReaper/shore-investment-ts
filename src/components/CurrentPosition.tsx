@@ -14,11 +14,14 @@ export default function CurrentPosition() {
     })
 
     const renderCurrentPosition = () => {
+        function handleRowClick(ticker: string) {
+
+        }
         if (currentPosition) {
             tableBody = (Object.keys(currentPosition['position']).map((ticker) => {
                 const tickerInfo = currentPosition['position'][ticker];
                 return (
-                    <tr key={ticker}>
+                    <tr key={ticker} onClick={() => { handleRowClick(ticker) }}>
                         <td>{ticker}</td>
                         <td>{formatNumberString(tickerInfo.average_buy_price, 2)}</td>
                         <td>{tickerInfo.amount}</td>
@@ -44,7 +47,7 @@ export default function CurrentPosition() {
     }, [])
 
     return (
-        <Container className="border border-primary rounded-3 my-1" style={{overflow: 'scroll'}}>
+        <Container className="border border-primary rounded-3 my-1" style={{ overflow: 'scroll' }}>
             <h3>Current Position</h3>
             <div className="row justify-content-evenly">
                 <label>last update: {currentPosition ? currentPosition.refresh_time : null}</label>
@@ -60,8 +63,8 @@ export default function CurrentPosition() {
 
 
             </p>
-            <Table striped bordered hover variant="dark"> 
-                <thead style={{position:'sticky', top: '0', zIndex: 1000}}>
+            <Table striped bordered hover variant="dark">
+                <thead style={{ position: 'sticky', top: '0', zIndex: 1000 }}>
                     <tr>
                         <th>Ticker</th>
                         <th>Buy-in Price</th>
