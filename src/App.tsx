@@ -31,43 +31,46 @@ function App() {
 
 
     return (
-        <div className="container">
-            <div
-                className='row text-center d-flex align-items-center rounded-top-5'
-                style={{
-                    backgroundImage: 'url(/north_shore.jpg)',
-                    backgroundPositionY: 'center',
-                    backgroundSize: 'cover',
-                    height: '150px',
-                    position: 'sticky',
-                    top: 0,
-                    zIndex: 10000,
-                }}
-            >
-                <h1 className="font-monospace text-white font-weight-bold"> Shore Investment</h1>
-            </div>
-
-            <div className='row text-center'>
-                <AccountSummary />
-            </div>
-
-            <p>This tool have yet not integrated external API yet, therefore the price quote is limited to [aapl, googl, amzn, tsla, nvda] </p>
-
-            <div className='row justify-content-between border border-success my-1'>
-                <div className='col-md-4 d-flex align-items-stretch text-center'>
-                    <CashflowForm />
+        <div className='App'>
+            <div className="container">
+                <div
+                    className='row text-center d-flex align-items-center rounded-top-5'
+                    style={{
+                        backgroundImage: 'url(/north_shore.jpg)',
+                        backgroundPositionY: 'center',
+                        backgroundSize: 'cover',
+                        height: '150px',
+                        position: 'sticky',
+                        top: 0,
+                        zIndex: 10000,
+                    }}
+                >
+                    <h1 className="font-monospace text-white font-weight-bold"> Shore Investment</h1>
                 </div>
-                <div className='col-md-8 d-flex align-items-stretch'>
-                    <TradeForm />
+
+                <div className='row text-center'>
+                    <AccountSummary />
                 </div>
-            </div>
 
-            <div className='row text-center'>
-                <CurrentPosition />
-            </div>
+                <p>This tool have yet not integrated external API yet, therefore the price quote is limited to [aapl, googl, amzn, tsla, nvda] </p>
 
-            <div className='row text-center'>
-                <Record />
+                <div className='row justify-content-between border border-success my-1'>
+                    <div className='col-md-4 d-flex align-items-stretch text-center'>
+                        <CashflowForm />
+                    </div>
+                    <div className='col-md-8 d-flex align-items-stretch'>
+                        <TradeForm />
+                    </div>
+                </div>
+
+                <div className='row text-center'>
+                    <CurrentPosition />
+                </div>
+
+                <div className='row text-center'>
+                    <Record />
+                </div>
+
             </div>
 
         </div>
