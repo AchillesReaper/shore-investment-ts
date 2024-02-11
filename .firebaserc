@@ -1,0 +1,15 @@
+{
+  "projects": {
+    "default": "trail-static"
+  },
+  "targets": {
+    "trail-static": {
+      "hosting": {
+        "mid": [
+          "investment-diary-adf15"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
