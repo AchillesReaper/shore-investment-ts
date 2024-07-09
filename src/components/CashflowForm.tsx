@@ -3,10 +3,11 @@ import { Button, Container, Col, Row } from "react-bootstrap";
 import { formatNumberString, logCashflowRecord } from "../globalFunction";
 
 export default function CashflowForm() {
-    const [cashBalance, setCashBalance] = useState<number>(parseFloat(window.localStorage.getItem('Cash_Balance')!));
+    const [cashBalance, setCashBalance] = useState<number>(0);
     const [cashflow, setCashflow] = useState<number>(0)
 
     useEffect(() => {
+        setCashBalance(parseFloat(window.localStorage.getItem('Cash_Balance') || '0'))
         const handleStorageChange = () => {
             setCashBalance(parseFloat(window.localStorage.getItem('Cash_Balance')!))
         }
@@ -18,9 +19,7 @@ export default function CashflowForm() {
     }, [])
 
     return (
-        <Container
-            className="text-center p-2 border border-primary rounded-3 my-1"
-        >
+        <Container className="text-center p-2 border border-primary rounded-3 my-1">
             <h3>Cashflow</h3>
             <Row className="my-2">
                 <label > Current Available Balance: {formatNumberString(cashBalance, 2)} </label>

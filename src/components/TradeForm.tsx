@@ -1,9 +1,9 @@
 import { Container, Row, Col } from "react-bootstrap";
 import { Button } from "react-bootstrap";
 import { useEffect, useState } from "react";
-import { formatNumberString, logCashflowRecord, logTradeRecord, quoteFromSample, refreshCurrentPositionValue } from "../globalFunction";
+import { logCashflowRecord, logTradeRecord, quoteFromSample, quoteFromYFinance, refreshCurrentPositionValue } from "../globalFunction";
 import { Portfolio, Ticker } from "./types";
-import { cpuUsage } from "process";
+
 
 export default function TradeForm() {
     const [ticker, setTicker] = useState<string>("")
@@ -11,21 +11,29 @@ export default function TradeForm() {
     const [quoteTime, setQuoteTime] = useState<number>(0)
     const [tradePrice, setTradePrice] = useState<number>(0)
     const [tradeAmount, setTradeAmount] = useState<number>(0)
+    const [isLoading, setIsLoading] = useState<boolean>(false)
     let btnLock = tradeAmount < 1 || tradePrice < 0.01 || !ticker || !latestPrice
 
     useEffect(() => {
-        // quoteTime record how many time the ticker is quoted ( when the quote btn is clicked)
-        if (quoteTime > 0 && ticker) {
-            let quotePrice: string[] | null = quoteFromSample(ticker)
-            //check if the price quote successeful, if not, reset ticker and lastPrice to disable buy/sell buttons
-            if (quotePrice) {
-                setLatestPrice(quotePrice)
-                setTradePrice(parseFloat(quotePrice[1]))
-            } else {
-                setTicker("")
-                setLatestPrice([])
+        const fetchQuotePrice = async () => {
+            // quoteTime record how many time the ticker is quoted ( when the quote btn is clicked)
+            if (quoteTime > 0 && ticker) {
+                // let quotePrice: string[] | null = quoteFromSample(ticker)
+                // console.log(quotePrice);
+                setIsLoading(true)
+                let quotePrice: string[] | null = await quoteFromYFinance(ticker)
+                setIsLoading(false)
+                //check if the price quote successeful, if not, reset ticker and lastPrice to disable buy/sell buttons
+                if (quotePrice) {
+                    setLatestPrice(quotePrice)
+                    setTradePrice(parseFloat(quotePrice[1]))
+                } else {
+                    setTicker("")
+                    setLatestPrice([])
+                }
             }
         }
+        fetchQuotePrice()
     }, [quoteTime])
 
     function buy() {
@@ -181,9 +189,6 @@ export default function TradeForm() {
                                 placeholder="ticker symble"
                                 value={ticker}
                                 onChange={(e) => setTicker(e.target.value)}
-                                onKeyDown={() => {
-                                    setQuoteTime(prev => (prev + 1))
-                                }}
                             ></input>
                         </Col>
 
@@ -200,7 +205,13 @@ export default function TradeForm() {
                         </Button>
                     </Row>
                     <Row >
-                        <p>Last Price: {latestPrice ? `${latestPrice[1]} @ ${latestPrice[0]}` : null}</p>
+                        {isLoading ?
+                            <div className="spinner-border text-primary mx-4" role="status">
+                                <span className="visually-hidden">Loading...</span>
+                            </div>
+                            :
+                            <p>Last Price: {latestPrice ? `${latestPrice[1]} @ ${latestPrice[0]}` : null}</p>
+                        }
                     </Row>
                 </Col>
                 <Col >

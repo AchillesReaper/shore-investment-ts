@@ -1,4 +1,5 @@
 // https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=aapl&interval=5min&apikey=YP10J6J5XSDGVUXX
+// https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=aapl&apikey=YP10J6J5XSDGVUXX
 // Those price sample are for the development purpose, preventing over consume the API requests
 export const price_aapl = {
     "Meta Data": {
@@ -3564,3 +3565,48 @@ export const price_nvda = {
         }
     }
 }
+
+// example from https://www.alphavantage.co/query?function=GLOBAL_QUOTE&symbol=aapl&apikey=YP10J6J5XSDGVUXX
+const sample_aapl = {
+    "Global Quote": {
+        "01. symbol": "AAPL",
+        "02. open": "207.7200",
+        "03. high": "212.7000",
+        "04. low": "206.5900",
+        "05. price": "208.1400",
+        "06. volume": "80727006",
+        "07. latest trading day": "2024-06-24",
+        "08. previous close": "207.4900",
+        "09. change": "0.6500",
+        "10. change percent": "0.3133%"
+    }
+}
+
+
+//https://financialmodelingprep.com/api/v3/quote-order/AA?apikey=kimo0dOi8qqIjzT1FvAjNOkbwhCdfi8R
+const sample_aapl_financialmodelingprep = [
+    {
+      "symbol": "AAPL",
+      "name": "Apple Inc.",
+      "price": 208.14,
+      "changesPercentage": 0.3133,
+      "change": 0.65,
+      "dayLow": 206.59,
+      "dayHigh": 212.7,
+      "yearHigh": 220.2,
+      "yearLow": 164.08,
+      "marketCap": 3191639574000,
+      "priceAvg50": 186.8118,
+      "priceAvg200": 182.8915,
+      "exchange": "NASDAQ",
+      "volume": 78306092,
+      "avgVolume": 67794775,
+      "open": 207.72,
+      "previousClose": 207.49,
+      "eps": 6.44,
+      "pe": 32.32,
+      "earningsAnnouncement": "2024-08-01T10:59:00.000+0000",
+      "sharesOutstanding": 15334100000,
+      "timestamp": 1719259201
+    }
+  ]

@@ -1,8 +1,9 @@
+import dayjs from "dayjs";
 import { price_aapl, price_amzn, price_googl, price_nvda, price_tsla } from "./components/data_price";
 import { Portfolio, transaction_cashflow, transaction_trade } from "./components/types";
+import axios from "axios";
 
 export function formatNumberString(origin_number: number, decimal_plcaes: number): string {
-
     return origin_number.toLocaleString('en-us', {
         style: 'decimal',
         minimumFractionDigits: decimal_plcaes,
@@ -118,8 +119,37 @@ export function quoteFromSample(ticker: string): string[] | null {
     }
 }
 
+export async function quoteFromYFinance(ticker: string): Promise<string[] | null> {
+    let quote_api = `https://australia-southeast1-organic-poetry-428800-e0.cloudfunctions.net/quote_stock_from_yfinance`
+    // const quote_api = `http://localhost:8080`
+    if (!ticker) {
+        alert('Please enter ticker')
+        return null
+    } else {
+        const latest_price_url = `${quote_api}/?stock_code=${ticker}`
+        const data = await axios.get(latest_price_url)
+            .then(response => {
+                const now_str = dayjs().format('YYYY-MM-DD HH:mm:ss')
+                console.log('response: ', response.data);
+                if (response.data && response.data != 'empty') {
+                    return [now_str, response.data as string]
+                } else {
+                    return null
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                return null
+            })
+        return data
+    }
+}
 
-export function refreshCurrentPositionValue() {
+export function quoteFromFMP(ticker: string) {
+}
+
+
+export async function refreshCurrentPositionValue() {
     // this function can only be fired by: a) TradeForm - buy() / sell(), b)
     // to update the position's market value, below informarion from individual tickers are minimal
     // 1) amount holding; 2) average buy-in price 
@@ -135,7 +165,9 @@ export function refreshCurrentPositionValue() {
             const average_buy_price = currentPos['position'][ticker].average_buy_price
             let ticker_market_price: number;
             try {
-                ticker_market_price = parseFloat(quoteFromSample(ticker)![1])
+                // ticker_market_price = parseFloat(quoteFromSample(ticker)![1])
+                const quote = await quoteFromYFinance(ticker)
+                ticker_market_price = parseFloat(quote![1])
             } catch {
                 console.log('Quote error, please check API');
                 return
